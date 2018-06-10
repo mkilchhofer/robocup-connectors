@@ -1,4 +1,4 @@
-package info.kilchhofer.bfh.lidar.consoleuiservant;
+package info.kilchhofer.bfh.robocup.consoleui.servant;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

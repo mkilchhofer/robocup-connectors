@@ -5,11 +5,11 @@
     <parent>
         <artifactId>robocup-connectors</artifactId>
         <groupId>info.kilchhofer.bfh</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>robocup-lidar-ui-servant</artifactId>
+    <artifactId>robocup-lidar-consoleui-servant</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -18,16 +18,17 @@
             <artifactId>robocup-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.mkilchhofer</groupId>
-            <artifactId>ch.quantasy.mqtt.gateway</artifactId>
-        </dependency>
-        <dependency>
             <groupId>info.kilchhofer.bfh</groupId>
             <artifactId>robocup-consoleui-service</artifactId>
         </dependency>
         <dependency>
             <groupId>info.kilchhofer.bfh</groupId>
             <artifactId>robocup-lidar-service</artifactId>
+            <classifier>jar-with-dependencies</classifier>
+        </dependency>
+        <dependency>
+            <groupId>ch.quantasy</groupId>
+            <artifactId>ch.quantasy.mqtt.gateway</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -43,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>info.kilchhofer.bfh.lidar.consoleuiservant.ConsoleUIServantRunner</mainClass>
+                            <mainClass>info.kilchhofer.bfh.robocup.consoleui.servant.ConsoleUIServantRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -57,7 +58,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>info.kilchhofer.bfh.lidar.consoleuiservant.ConsoleUIServantRunner</mainClass>
+                            <mainClass>info.kilchhofer.bfh.robocup.consoleui.servant.ConsoleUIServantRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -27,6 +27,7 @@
 
     <modules>
         <module>robocup-lidar-consoleui-servant</module>
+        <module>robocup-lidar-gui-servant</module>
     </modules>
 
     <repositories>

@@ -1,4 +1,4 @@
-package info.kilchhofer.bfh.robocup.consoleui.servant.binding;
+package info.kilchhofer.bfh.robocup.connectors.gui.binding;
 
 import ch.quantasy.mqtt.gateway.client.contract.AyamlServiceContract;
 import ch.quantasy.mqtt.gateway.client.message.Message;
@@ -7,9 +7,9 @@ import java.util.Map;
 
 import static info.kilchhofer.bfh.robocup.common.Constants.ROBOCUP_ROOT_CONTEXT;
 
-public class ConsoleUIServantContract extends AyamlServiceContract {
+public class GUIServantContract extends AyamlServiceContract {
 
-    public ConsoleUIServantContract(String instanceID) {
+    public GUIServantContract(String instanceID) {
         super(ROBOCUP_ROOT_CONTEXT, "Lidar-ConsoleUI-Servant", instanceID);
     }
 

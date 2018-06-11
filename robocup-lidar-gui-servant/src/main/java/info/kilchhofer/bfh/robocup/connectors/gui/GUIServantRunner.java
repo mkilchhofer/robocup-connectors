@@ -1,4 +1,4 @@
-package info.kilchhofer.bfh.robocup.gui.servant;
+package info.kilchhofer.bfh.robocup.connectors.gui;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.UnknownHostException;
 
+import static info.kilchhofer.bfh.robocup.common.Constants.DEFAULT_BROKER_ADDRESS;
+
 public class GUIServantRunner {
     private static final Logger LOGGER = LogManager.getLogger(GUIServantRunner.class);
     private static String computerName;
 
     static {
+        LOGGER.info("Headless: " + java.awt.GraphicsEnvironment.isHeadless());
         try {
             computerName = java.net.InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException ex) {
@@ -21,13 +24,13 @@ public class GUIServantRunner {
         }
     }
 
-    public static void main(String[] args) throws MqttException, InterruptedException, IOException {
+    public static void main(String[] args) throws MqttException, IOException {
         System.out.println("Loglevel= " + LOGGER.getLevel());
-        URI mqttURI = URI.create("tcp://127.0.0.1:1883");
+        URI mqttURI = URI.create(DEFAULT_BROKER_ADDRESS);
         if (args.length > 0) {
             mqttURI = URI.create(args[0]);
         } else {
-            LOGGER.info("Per default, 'tcp://127.0.0.1:1883' is chosen. You can provide another address as first argument i.e.: tcp://iot.eclipse.org:1883");
+            LOGGER.info("Per default, '{}' is chosen. You can provide another address as first argument i.e.: tcp://iot.eclipse.org:1883", DEFAULT_BROKER_ADDRESS);
         }
         LOGGER.info("{} will be used as broker address.", mqttURI);
 

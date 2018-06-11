@@ -9,8 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>robocup-lidar-gui-servant</artifactId>
+    <artifactId>robocup-connectors-domainrunner</artifactId>
     <packaging>jar</packaging>
+
+
+
+    <!--
+            <module>robocup-lidar-consoleui-servant</module>
+        <module>robocup-lidar-gui-servant</module>
+    -->
 
     <dependencies>
         <dependency>
@@ -19,20 +26,13 @@
         </dependency>
         <dependency>
             <groupId>info.kilchhofer.bfh</groupId>
-            <artifactId>robocup-gui-service</artifactId>
+            <artifactId>robocup-lidar-consoleui-servant</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>info.kilchhofer.bfh</groupId>
-            <artifactId>robocup-lidar-service</artifactId>
-            <classifier>jar-with-dependencies</classifier>
-        </dependency>
-        <dependency>
-            <groupId>ch.quantasy</groupId>
-            <artifactId>ch.quantasy.mqtt.gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
+            <artifactId>robocup-lidar-gui-servant</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ConsoleUIServantRunner</mainClass>
+                            <mainClass>info.kilchhofer.bfh.robocup.connectors.ConnectorsDomainRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -58,7 +58,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ConsoleUIServantRunner</mainClass>
+                            <mainClass>info.kilchhofer.bfh.robocup.connectors.ConnectorsDomainRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -74,4 +74,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

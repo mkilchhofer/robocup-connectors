@@ -1,10 +1,10 @@
-package info.kilchhofer.bfh.robocup.gui.servant;
+package info.kilchhofer.bfh.robocup.connectors.gui;
 
 import ch.quantasy.mqtt.gateway.client.ConnectionStatus;
 import ch.quantasy.mqtt.gateway.client.GatewayClient;
 import ch.quantasy.mqtt.gateway.client.message.MessageReceiver;
-import info.kilchhofer.bfh.robocup.gui.servant.binding.GUIServantContract;
-import info.kilchhofer.bfh.robocup.gui.servant.helper.PolarToCartesian;
+import info.kilchhofer.bfh.robocup.connectors.gui.binding.GUIServantContract;
+import info.kilchhofer.bfh.robocup.connectors.gui.helper.PolarToCartesian;
 import info.kilchhofer.bfh.robocup.gui.service.binding.CartesianPoint;
 import info.kilchhofer.bfh.robocup.gui.service.binding.GuiIntent;
 import info.kilchhofer.bfh.robocup.gui.service.binding.GuiServiceContract;

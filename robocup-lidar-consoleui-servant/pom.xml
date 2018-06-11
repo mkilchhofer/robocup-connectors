@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>info.kilchhofer.bfh.robocup.consoleui.servant.ConsoleUIServantRunner</mainClass>
+                            <mainClass>info.kilchhofer.bfh.robocup.connectors.consoleui.ConsoleUIServantRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -58,7 +58,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>info.kilchhofer.bfh.robocup.consoleui.servant.ConsoleUIServantRunner</mainClass>
+                            <mainClass>info.kilchhofer.bfh.robocup.connectors.consoleui.ConsoleUIServantRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

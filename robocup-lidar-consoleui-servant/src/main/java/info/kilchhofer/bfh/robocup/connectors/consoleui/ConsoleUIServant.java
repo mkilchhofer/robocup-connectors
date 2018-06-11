@@ -1,9 +1,9 @@
-package info.kilchhofer.bfh.robocup.consoleui.servant;
+package info.kilchhofer.bfh.robocup.connectors.consoleui;
 
 import ch.quantasy.mqtt.gateway.client.ConnectionStatus;
 import ch.quantasy.mqtt.gateway.client.GatewayClient;
 import ch.quantasy.mqtt.gateway.client.message.MessageReceiver;
-import info.kilchhofer.bfh.robocup.consoleui.servant.binding.ConsoleUIServantContract;
+import info.kilchhofer.bfh.robocup.connectors.consoleui.binding.ConsoleUIServantContract;
 import info.kilchhofer.bfh.robocup.consoleui.service.binding.*;
 import info.kilchhofer.bfh.robocup.lidar.service.binding.*;
 import org.apache.logging.log4j.LogManager;

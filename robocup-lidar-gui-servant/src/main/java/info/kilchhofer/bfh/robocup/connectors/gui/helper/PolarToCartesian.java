@@ -1,4 +1,4 @@
-package info.kilchhofer.bfh.robocup.gui.servant.helper;
+package info.kilchhofer.bfh.robocup.connectors.gui.helper;
 
 import info.kilchhofer.bfh.robocup.gui.service.binding.CartesianPoint;
 import info.kilchhofer.bfh.robocup.lidar.service.binding.Measurement;

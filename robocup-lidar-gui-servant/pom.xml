@@ -27,6 +27,10 @@
             <classifier>jar-with-dependencies</classifier>
         </dependency>
         <dependency>
+            <groupId>info.kilchhofer.bfh</groupId>
+            <artifactId>robocup-2d-edgedetection-service</artifactId>
+        </dependency>
+        <dependency>
             <groupId>ch.quantasy</groupId>
             <artifactId>ch.quantasy.mqtt.gateway</artifactId>
         </dependency>

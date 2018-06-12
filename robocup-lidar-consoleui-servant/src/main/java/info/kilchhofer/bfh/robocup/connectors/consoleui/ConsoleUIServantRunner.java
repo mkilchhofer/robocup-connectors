@@ -34,10 +34,7 @@ public class ConsoleUIServantRunner {
         }
         LOGGER.info("{} will be used as broker address.", mqttURI);
 
-        String mqttClientName = "LidarServant@" + computerName;
-        String instanceName = mqttClientName;
-
-        ConsoleUIServant consoleUIServant = new ConsoleUIServant(mqttURI, mqttClientName, instanceName);
+        new ConsoleUIServant(mqttURI, "LidarServant@" + computerName, "LidarServant@" + computerName);
 
         System.in.read();
     }

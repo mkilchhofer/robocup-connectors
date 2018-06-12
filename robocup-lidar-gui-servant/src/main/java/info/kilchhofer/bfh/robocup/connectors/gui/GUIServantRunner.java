@@ -34,10 +34,7 @@ public class GUIServantRunner {
         }
         LOGGER.info("{} will be used as broker address.", mqttURI);
 
-        String mqttClientName = "LidarGuiServant@" + computerName;
-        String instanceName = mqttClientName;
-
-        GUIServant GUIServant = new GUIServant(mqttURI, mqttClientName, instanceName);
+        new GUIServant(mqttURI, "LidarGuiServant@" + computerName, "LidarGuiServant@" + computerName);
 
         System.in.read();
     }

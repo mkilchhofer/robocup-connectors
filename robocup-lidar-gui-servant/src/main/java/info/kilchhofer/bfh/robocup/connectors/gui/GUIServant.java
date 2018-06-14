@@ -28,6 +28,7 @@ public class GUIServant {
     private LidarServiceContract lidarServiceContract;
     private Set<GuiServiceContract> guiServiceInstances;
     private Set<EdgeDetectionServiceContract> edgeDetectionServiceInstances;
+    private Set<LidarServiceContract> tim55xInstances;
 
     private final GatewayClient<GUIServantContract> gatewayClient;
     private MessageReceiver uiConnectionStatusReceiver, measurementReceiver, lidarConnectionStatusReceiver, edgeDetectionConnectionStatusReceiver, detectedEdgesReceiver;
@@ -36,6 +37,7 @@ public class GUIServant {
         this.gatewayClient = new GatewayClient<>(mqttURI, mqttClientName, new GUIServantContract(instanceName));
         this.guiServiceInstances = new HashSet<>();
         this.edgeDetectionServiceInstances = new HashSet<>();
+        this.tim55xInstances = new HashSet<>();
         this.gatewayClient.connect();
 
         setupUIMessageReceivers();
@@ -66,6 +68,7 @@ public class GUIServant {
                 } else {
                     guiServiceInstances.remove(guiServiceContract);
                 }
+                LOGGER.info("'{}' Active GUI Instances", guiServiceInstances.size());
             }
         };
     }
@@ -119,6 +122,7 @@ public class GUIServant {
                     edgeDetectionServiceInstances.remove(edgeDetectionServiceContractContract);
                     gatewayClient.unsubscribe(edgeDetectionServiceContractContract.EVENT_EDGE_DETECTED + "/#");
                 }
+                LOGGER.info("'{}' Active EdgeDetection Instances", edgeDetectionServiceInstances.size());
 
             }
         };
@@ -157,10 +161,13 @@ public class GUIServant {
                 LOGGER.info("TiM55x Instance '{}' is now {}", lidarServiceContract.INSTANCE, status.value);
 
                 if (status.value.equals("online")) {
+                    tim55xInstances.add(lidarServiceContract);
                     gatewayClient.subscribe(lidarServiceContract.EVENT_MEASUREMENT, measurementReceiver);
                 } else {
+                    tim55xInstances.remove(lidarServiceContract);
                     gatewayClient.unsubscribe(lidarServiceContract.EVENT_MEASUREMENT);
                 }
+                LOGGER.info("'{}' Active TiM55x Instances", tim55xInstances.size());
             }
         };
     }

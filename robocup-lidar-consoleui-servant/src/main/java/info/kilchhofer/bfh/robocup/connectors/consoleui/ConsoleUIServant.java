@@ -23,6 +23,7 @@ public class ConsoleUIServant {
     private static final Logger LOGGER = LogManager.getLogger(ConsoleUIServant.class);
     private LidarServiceContract lidarServiceContract;
     private Set<ConsoleUIServiceContract> uiInstances;
+    private Set<LidarServiceContract> tim55xInstances;
     private final GatewayClient<ConsoleUIServantContract> gatewayClient;
     private MessageReceiver keyPressReceiver, uiConnectionStatusReceiver,
             measurementReceiver, tim55xStateReceiver, lidarConnectionStatusReceiver;
@@ -30,6 +31,7 @@ public class ConsoleUIServant {
     public ConsoleUIServant(URI mqttURI, String mqttClientName, String instanceName) throws MqttException {
         this.gatewayClient = new GatewayClient<>(mqttURI, mqttClientName, new ConsoleUIServantContract(instanceName));
         this.uiInstances = new HashSet<>();
+        this.tim55xInstances= new HashSet<>();
         this.gatewayClient.connect();
 
         setupUIMessageReceivers();
@@ -72,7 +74,11 @@ public class ConsoleUIServant {
                         LOGGER.info("Received '{}'. Send Intent '{}' to Hardware Service.",
                                 receivedChar,
                                 lidarIntent.command.toString());
-                        gatewayClient.readyToPublish(lidarServiceContract.INTENT, lidarIntent);
+                        if (tim55xInstances.size() > 0) {
+                            for (LidarServiceContract tim55xInstance : tim55xInstances) {
+                                gatewayClient.readyToPublish(tim55xInstance.INTENT, lidarIntent);
+                            }
+                        }
                     }
                 }
             }
@@ -120,18 +126,18 @@ public class ConsoleUIServant {
                 Set<LidarMeasurementEvent> lidarMeasurementEvents = gatewayClient.toMessageSet(payload, LidarMeasurementEvent.class);
                 for (LidarMeasurementEvent lidarMeasurementEvent : lidarMeasurementEvents) {
 
+                    ConsoleIntent consoleIntent = new ConsoleIntent();
+
+                    consoleIntent.consoleMessage = String.format("New Data received (Timestamp = %s): \n-------------\n",
+                            lidarMeasurementEvent.getTimeStamp());
+
+                    Measurement measurement = lidarMeasurementEvent.getMeasurements().get(10);
+                        consoleIntent.consoleMessage += String.format("Angle = %s; Distance = %d; RSSI = %d\n",
+                                measurement.angle,
+                                measurement.distance,
+                                measurement.rssi);
+
                     for (ConsoleUIServiceContract instance : uiInstances) {
-                        ConsoleIntent consoleIntent = new ConsoleIntent();
-
-                        consoleIntent.consoleMessage = String.format("New Data received (Timestamp = %s): \n-------------\n",
-                                lidarMeasurementEvent.getTimeStamp());
-
-                        for (Measurement measurement : lidarMeasurementEvent.getMeasurements()) {
-                            consoleIntent.consoleMessage += String.format("Angle = %s; Distance = %d; RSSI = %d\n",
-                                    measurement.angle,
-                                    measurement.distance,
-                                    measurement.rssi);
-                        }
                         gatewayClient.readyToPublish(instance.INTENT, consoleIntent);
                     }
                 }
@@ -144,11 +150,10 @@ public class ConsoleUIServant {
                 LOGGER.trace("STATUS_STATE Payload: " + payload);
                 Set<LidarState> lidarStates = gatewayClient.toMessageSet(payload, LidarState.class);
                 for (LidarState lidarState : lidarStates) {
+                    ConsoleIntent tempConsoleIntent = new ConsoleIntent("Sensor " + lidarState.state);
 
                     for (ConsoleUIServiceContract instance : uiInstances) {
-                        gatewayClient.readyToPublish(instance.INTENT,
-                                new ConsoleIntent("Sensor " + lidarState.state)
-                        );
+                        gatewayClient.readyToPublish(instance.INTENT, tempConsoleIntent);
                     }
                 }
             }
@@ -163,12 +168,15 @@ public class ConsoleUIServant {
                 LOGGER.info("TiM55x Instance '{}' is now {}", lidarServiceContract.INSTANCE, status.value);
 
                 if (status.value.equals("online")) {
+                    tim55xInstances.add(lidarServiceContract);
                     gatewayClient.subscribe(lidarServiceContract.EVENT_MEASUREMENT, measurementReceiver);
                     gatewayClient.subscribe(lidarServiceContract.STATUS_STATE, tim55xStateReceiver);
                 } else {
+                    tim55xInstances.remove(lidarServiceContract);
                     gatewayClient.unsubscribe(lidarServiceContract.EVENT_MEASUREMENT);
                     gatewayClient.unsubscribe(lidarServiceContract.STATUS_STATE);
                 }
+                LOGGER.info("'{}' Active TiM55x Instances", tim55xInstances.size());
             }
         };
     }

@@ -58,12 +58,12 @@
             <dependency>
                 <groupId>info.kilchhofer.bfh</groupId>
                 <artifactId>robocup-2d-edgedetection-service</artifactId>
-                <version>20180613.0</version>
+                <version>20180614.0</version>
             </dependency>
             <dependency>
                 <groupId>info.kilchhofer.bfh</groupId>
                 <artifactId>robocup-lidar-service</artifactId>
-                <version>20180613.0</version>
+                <version>20180614.0</version>
                 <classifier>jar-with-dependencies</classifier>
             </dependency>
         </dependencies>

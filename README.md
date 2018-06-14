@@ -1,2 +1,3 @@
+[![Build Status](https://travis-ci.org/mkilchhofer/robocup-connectors.svg?branch=master)](https://travis-ci.org/mkilchhofer/robocup-connectors) [ ![Download](https://api.bintray.com/packages/mkilchhofer/robocup/robocup-connectors/images/download.svg) ](https://bintray.com/mkilchhofer/robocup/robocup-connectors/_latestVersion)
 # Connectors ("Servants") for Robocup
 ...
